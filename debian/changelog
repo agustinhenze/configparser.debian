@@ -1,0 +1,5 @@
+configparser (3.2.0r3-1) unstable; urgency=low
+
+  * Initial release (Closes: #690050).
+
+ -- Agustin Henze <tin@sluc.org.ar>  Wed, 09 Oct 2012 10:03:41 -0300

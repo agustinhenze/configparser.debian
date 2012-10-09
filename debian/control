@@ -1,0 +1,20 @@
+Source: configparser
+Section: python
+Priority: optional
+Maintainer: Agustin Henze <tin@sluc.org.ar>
+Uploaders: Ulises Vitulli <dererk@debian.org>
+Build-Depends: debhelper (>= 9)
+Build-Depends-Indep: python-all,
+ python-support (>= 1),
+ python-setuptools,
+Standards-Version: 3.9.3
+X-Python-Version: >= 2.7
+Homepage: https://bitbucket.org/ambv/configparser
+
+Package: python-configparser
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}
+Description: backport of the enhanced config parser in Python 3.2
+ The ancient ConfigParser module available in the standard library 2.x has
+ seen a major update in Python 3.2. This is a backport of those changes so
+ that they can be used directly in Python 2.7.

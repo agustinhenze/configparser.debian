@@ -1,0 +1,25 @@
+3.2.0r3
+-------
+
+- proper Python 2.6 support explicitly stated the dependency on ordereddict
+  numbered all formatting braces in strings
+- explicitly says that Python 2.5 support won't happen (too much work
+ necessary without abstract base classes, string formatters, the io
+ library, etc.)
+- some healthy advertising in the README
+
+3.2.0r2
+-------
+
+- a backport-specific change: for convenience and basic compatibility with
+the old ConfigParser, bytestrings are now accepted as section names,
+options and values. Those strings are still converted to Unicode for
+internal storage so in any case when such conversion is not possible
+(using the 'ascii' codec), UnicodeDecodeError is raised.
+
+3.2.0r1
+-------
+
+- the first public release compatible with 3.2.0 + fixes for #11324, #11670
+      and #11858.
+

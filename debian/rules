@@ -1,0 +1,27 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+PYVERS :=  python2.7
+
+%:
+	dh $@ --with python2
+
+override_dh_auto_build:
+
+override_dh_auto_clean:
+	dh_auto_clean -- --all
+	rm -rf build
+
+override_dh_installchangelogs:
+	dh_installchangelogs debian/changelog.upstream
+
+override_dh_auto_install:
+	dh_auto_install
+	set -ex; \
+	for py in $(PYVERS); do \
+		$$py setup.py install --root debian/python-configparser \
+				      --install-layout=deb; \
+	done
