@@ -15,7 +15,7 @@ with::
   import configparser
 
 For detailed documentation consult the vanilla version at
-http://docs.python.org/py3k/library/configparser.html.
+http://docs.python.org/3/library/configparser.html.
 
 Why you'll love ``configparser``
 --------------------------------
@@ -24,7 +24,7 @@ Whereas almost completely compatible with its older brother, ``configparser``
 sports a bunch of interesting new features:
 
 * full mapping protocol access (`more info
-  <http://docs.python.org/py3k/library/configparser.html#mapping-protocol-access>`_)::
+  <http://docs.python.org/3/library/configparser.html#mapping-protocol-access>`_)::
 
     >>> parser = ConfigParser()
     >>> parser.read_string("""
@@ -59,29 +59,29 @@ sports a bunch of interesting new features:
   ``RawConfigParser`` anymore.
 
 * the parser is highly `customizable upon instantiation
-  <http://docs.python.org/py3k/library/configparser.html#customizing-parser-behaviour>`__
+  <http://docs.python.org/3/library/configparser.html#customizing-parser-behaviour>`__
   supporting things like changing option delimiters, comment characters, the
   name of the DEFAULT section, the interpolation syntax, etc.
 
 * you can easily create your own interpolation syntax but there are two powerful
   implementations built-in (`more info
-  <http://docs.python.org/py3k/library/configparser.html#interpolation-of-values>`__):
+  <http://docs.python.org/3/library/configparser.html#interpolation-of-values>`__):
 
   * the classic ``%(string-like)s`` syntax (called ``BasicInterpolation``)
 
   * a new ``${buildout:like}`` syntax (called ``ExtendedInterpolation``)
   
 * fallback values may be specified in getters (`more info
-  <http://docs.python.org/py3k/library/configparser.html#fallback-values>`__)::
+  <http://docs.python.org/3/library/configparser.html#fallback-values>`__)::
 
     >>> config.get('closet', 'monster',
     ...            fallback='No such things as monsters')
     'No such things as monsters'
   
 * ``ConfigParser`` objects can now read data directly `from strings
-  <http://docs.python.org/py3k/library/configparser.html#configparser.ConfigParser.read_string>`__
+  <http://docs.python.org/3/library/configparser.html#configparser.ConfigParser.read_string>`__
   and `from dictionaries
-  <http://docs.python.org/py3k/library/configparser.html#configparser.ConfigParser.read_dict>`__.
+  <http://docs.python.org/3/library/configparser.html#configparser.ConfigParser.read_dict>`__.
   That means importing configuration from JSON or specifying default values for
   the whole configuration (multiple sections) is now a single line of code. Same
   goes for copying data from another ``ConfigParser`` instance, thanks to its
@@ -118,8 +118,8 @@ scheme is used where:
 
 * a backport release number is provided after the ``r`` letter
 
-For example, ``3.2.0r1`` is the **first** release of ``configparser`` compatible
-with the library found in Python **3.2.0**.
+For example, ``3.3.0r1`` is the **first** release of ``configparser`` compatible
+with the library found in Python **3.3.0**.
 
 A single exception from the 100% compatibility principle is that bugs fixed
 before releasing another minor Python 3.x.y version **will be included** in the
@@ -131,12 +131,35 @@ Maintenance
 This backport is maintained on BitBucket by Łukasz Langa, the current vanilla
 ``configparser`` maintainer for CPython:
 
-* `configparser Mercurial repository <https://bitbucket.org/langacore/configparser>`_
+* `configparser Mercurial repository <https://bitbucket.org/ambv/configparser>`_
 
-* `configparser issue tracker <https://bitbucket.org/langacore/configparser/issues>`_ 
+* `configparser issue tracker <https://bitbucket.org/ambv/configparser/issues>`_ 
 
 Change Log
 ----------
+
+3.3.0r2
+~~~~~~~
+
+* updated the fix for `#16820 <http://bugs.python.org/issue16820>`_: parsers
+  now preserve section order when using ``__setitem__`` and ``update``
+
+3.3.0r1
+~~~~~~~
+
+* compatible with 3.3.0 + fixes for `#15803
+  <http://bugs.python.org/issue15803>`_ and `#16820
+  <http://bugs.python.org/issue16820>`_
+
+* fixes `BitBucket issue #4
+  <https://bitbucket.org/ambv/configparser/issue/4>`_: ``read()`` properly
+  treats a bytestring argument as a filename
+
+* `ordereddict <http://pypi.python.org/pypi/ordereddict>`_ dependency required
+  only for Python 2.6
+
+* `unittest2 <http://pypi.python.org/pypi/unittest2>`_ explicit dependency
+  dropped. If you want to test the release, add ``unittest2`` on your own.
 
 3.2.0r3
 ~~~~~~~
@@ -181,14 +204,14 @@ not important for you, feel free to ignore the following content.
 Because a fully automatic conversion was not doable, I took the following
 branching approach:
 
-* the ``3.2`` branch holds unchanged files synchronized from the upstream
+* the ``3.x`` branch holds unchanged files synchronized from the upstream
   CPython repository. The synchronization is currently done by manually copying
   the required files and stating from which CPython changeset they come from.
 
-* the ``3.2-clean`` branch holds a version of the ``3.2`` code with some tweaks
+* the ``3.x-clean`` branch holds a version of the ``3.x`` code with some tweaks
   that make it independent from libraries and constructions unavailable on 2.x.
-  Code on this branch still *must* work on Python 3.2. You can check this
-  running the supplied unit tests.
+  Code on this branch still *must* work on the corresponding Python 3.x. You
+  can check this running the supplied unit tests.
 
 * the ``default`` branch holds necessary changes which break unit tests on
   Python 3.2.  Additional files which are used by the backport are also stored
@@ -196,20 +219,20 @@ branching approach:
 
 The process works like this:
 
-1. I update the ``3.2`` branch with new versions of files. Commit.
+1. I update the ``3.x`` branch with new versions of files. Commit.
 
-2. I merge the new commit to ``3.2-clean``. Check unit tests. Commit.
+2. I merge the new commit to ``3.x-clean``. Check unit tests. Commit.
 
-3. If there are necessary changes that can be made in a 3.2 compatible manner,
-   I do them now (still on ``3.2-clean``), check unit tests and commit. If I'm
+3. If there are necessary changes that can be made in a 3.x compatible manner,
+   I do them now (still on ``3.x-clean``), check unit tests and commit. If I'm
    not yet aware of any, no problem.
 
-4. I merge the changes from ``3.2-clean`` to ``default``. Commit.
+4. I merge the changes from ``3.x-clean`` to ``default``. Commit.
 
-5. If there are necessary changes that cannot be made in a 3.2 compatible
-   manner, I do them now (on ``default``). Note that the changes should still be
-   written using 3.x syntax. If I'm not yet aware of any required changes, no
-   problem.
+5. If there are necessary changes that *cannot* be made in a 3.x compatible
+   manner, I do them now (on ``default``). Note that the changes should still
+   be written using 3.x syntax. If I'm not yet aware of any required changes,
+   no problem.
 
 6. I run ``./convert.py`` which is a custom ``3to2`` runner for this project.
 
@@ -222,8 +245,8 @@ the conversion step as the last (after any custom changes) helps managing the
 history better. Plus, the merges are nicer and updates of the converter software
 don't create nasty conflicts in the repository.
 
-This process works quite well but if you have any tips on how to make it simpler
-and faster, do enlighten me :)
+This process works well but if you have any tips on how to make it simpler and
+faster, do enlighten me :)
 
 Footnotes
 ---------
