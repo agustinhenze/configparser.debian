@@ -7,13 +7,14 @@
 PYVERS :=  python2.7
 
 %:
-	dh $@ --with python2
+	dh $@ --with python2 --with sphinxdoc
 
 override_dh_auto_build:
 
 override_dh_auto_clean:
-	dh_auto_clean -- --all
+	dh_auto_clean
 	rm -rf build
+	rm -rf debian/doc/_build
 
 override_dh_installchangelogs:
 	dh_installchangelogs debian/changelog.upstream
@@ -25,3 +26,7 @@ override_dh_auto_install:
 		$$py setup.py install --root debian/python-configparser \
 				      --install-layout=deb; \
 	done
+	set -ex; \
+		cd debian/doc; \
+		make html; \
+		cd -;
