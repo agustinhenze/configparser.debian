@@ -5,6 +5,7 @@
 #export DH_VERBOSE=1
 
 PYVERS :=  python2.7
+UPSTREAM_VERSION := $(shell dpkg-parsechangelog | sed -n -e's/^Version: \(.*\)-[^-]\+/\1/p')
 
 %:
 	dh $@ --with python2 --with sphinxdoc
@@ -30,3 +31,11 @@ override_dh_auto_install:
 		cd debian/doc; \
 		make html; \
 		cd -;
+
+get-orig-source:
+	@if [ ! -d "debian" ] ; then \
+	    echo 'Run this from the top directory of the Debian source' >&2; \
+	    exit 1; \
+	fi
+	wget https://pypi.python.org/packages/source/c/configparser/configparser-$(UPSTREAM_VERSION).tar.gz \
+		-O ../configparser_$(UPSTREAM_VERSION).orig.tar.gz;
