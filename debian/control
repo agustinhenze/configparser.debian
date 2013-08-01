@@ -5,7 +5,6 @@ Maintainer: Agustin Henze <tin@sluc.org.ar>
 Uploaders: Ulises Vitulli <dererk@debian.org>
 Build-Depends: debhelper (>= 9)
 Build-Depends-Indep: python-all,
- python-support (>= 1),
  python-setuptools,
  python-sphinx (>= 1.0.7+dfsg),
 Standards-Version: 3.9.4
