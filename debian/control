@@ -1,7 +1,7 @@
 Source: configparser
 Section: python
 Priority: optional
-Maintainer: Agustin Henze <tin@sluc.org.ar>
+Maintainer: Agustin Henze <tin@debian.org>
 Uploaders: Ulises Vitulli <dererk@debian.org>
 Build-Depends: debhelper (>= 9)
 Build-Depends-Indep: python-all,
