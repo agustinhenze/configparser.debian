@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 9)
 Build-Depends-Indep: python-all,
  python-setuptools,
  python-sphinx (>= 1.0.7+dfsg),
-Standards-Version: 3.9.4
+Standards-Version: 4.0.0
 X-Python-Version: >= 2.7
 Homepage: https://bitbucket.org/ambv/configparser
 Vcs-Git: https://anonscm.debian.org/collab-maint/configparser.git
